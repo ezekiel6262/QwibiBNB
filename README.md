@@ -65,6 +65,14 @@ The generated runtime keeps secrets in `qwibibnbagent/.studio/.env.local`, which
 
 The managed BNB trial is a temporary 48-hour BSC testnet environment. It requires a new throwaway wallet because its testnet signing material is transmitted to the platform operator's managed secret store during deployment. The trial clock starts on the first successful deploy.
 
+## Live BNB testnet agent
+
+- A2A card: `https://bnbagent-api.bnbchain.world/v1/rt/01M1DKG8MKDB3N17RTMRYDQ9XA/.well-known/agent-card.json`
+- A2A invoke: `https://bnbagent-api.bnbchain.world/v1/rt/01M1DKG8MKDB3N17RTMRYDQ9XA/a2a`
+- MCP: `https://bnbagent-api.bnbchain.world/v1/rt/01M1DKG8MKDB3N17RTMRYDQ9XA/mcp`
+- x402: `https://bnbagent-api.bnbchain.world/v1/rt/01M1DKG8MKDB3N17RTMRYDQ9XA/x402` (dormant until B402 sandbox merchant credentials are provisioned)
+- Trial expiry: `2026-09-03T04:15:05Z`
+
 ## Deployment sequence
 
 1. Set `WALLET_PASSWORD` privately in `qwibibnbagent/.studio/.env.local`.
@@ -75,7 +83,7 @@ The managed BNB trial is a temporary 48-hour BSC testnet environment. It require
 6. Run `bag deploy prepare --provider bnb --backend aws`.
 7. Deploy with `bag deploy --provider bnb`.
 8. Verify the live endpoint and reconcile the ERC-8004 identity.
-9. Replace all `PENDING_BNB_AGENT_STUDIO_ENDPOINT` metadata values with the deployed HTTPS endpoint.
+9. Publish the deployed HTTPS endpoints in the agent metadata.
 10. List the verified MCP or x402 endpoint on YellowCrab.
 
 Paid x402 activation additionally requires a separate B402 sandbox merchant application for this exact agent wallet and environment. Sandbox and production credentials must never be reused across wallets or networks.
@@ -92,4 +100,4 @@ pnpm --filter qwibibnbagent-agent build
 bag doctor
 ```
 
-The public repository contains source and placeholder configuration only. Local environment files, wallet keystores, B402 keys, generated reports, datasets, build output, and cloud linkage are excluded.
+The public repository contains source and public deployment metadata only. Local environment files, wallet keystores, B402 keys, generated reports, datasets, build output, and private cloud linkage are excluded.

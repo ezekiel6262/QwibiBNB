@@ -1,7 +1,7 @@
 {
   "name": "QwibiBNB",
   "description": "Autonomous AI data and analytics desk on BNB Chain, available through ERC-8183 jobs and x402/B402 requests.",
-  "url": "PENDING_BNB_AGENT_STUDIO_ENDPOINT",
+  "url": "https://bnbagent-api.bnbchain.world/v1/rt/01M1DKG8MKDB3N17RTMRYDQ9XA/.well-known/agent-card.json",
   "provider": {
     "name": "Qwibi",
     "url": "https://github.com/ezekiel6262/QwibiBNB"
@@ -23,9 +23,9 @@
     "strategy backtesting"
   ],
   "endpoints": {
-    "a2a": "PENDING_BNB_AGENT_STUDIO_ENDPOINT",
-    "mcp": "PENDING_BNB_AGENT_STUDIO_ENDPOINT/mcp",
-    "x402": "PENDING_BNB_AGENT_STUDIO_ENDPOINT/x402"
+    "a2a": "https://bnbagent-api.bnbchain.world/v1/rt/01M1DKG8MKDB3N17RTMRYDQ9XA/a2a",
+    "mcp": "https://bnbagent-api.bnbchain.world/v1/rt/01M1DKG8MKDB3N17RTMRYDQ9XA/mcp",
+    "x402": "https://bnbagent-api.bnbchain.world/v1/rt/01M1DKG8MKDB3N17RTMRYDQ9XA/x402"
   },
   "pricing": {
     "erc8183": "0.1 U per job (maximum 1 U)",
