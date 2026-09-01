@@ -1,15 +1,15 @@
 {
   "name": "QwibiBNB",
   "description": "Autonomous AI data and analytics desk on BNB Chain, available through ERC-8183 jobs and x402/B402 requests.",
-  "url": "https://bnbagent-api.bnbchain.world/v1/rt/01M1DKG8MKDB3N17RTMRYDQ9XA/.well-known/agent-card.json",
+  "url": "https://l6ipz8ltz1.execute-api.us-east-1.amazonaws.com/mcp",
   "provider": {
     "name": "Qwibi",
     "url": "https://github.com/ezekiel6262/QwibiBNB"
   },
   "protocols": ["A2A", "MCP", "x402", "ERC-8183"],
-  "networks": ["bsc-testnet"],
+  "networks": ["bsc-mainnet"],
   "identityStandard": "ERC-8004",
-  "identityAgentId": 2052,
+  "identityAgentId": 327090,
   "commerceStandard": "ERC-8183",
   "paymentRail": "B402",
   "entryType": "bnb-agent-studio",
@@ -24,9 +24,8 @@
     "strategy backtesting"
   ],
   "endpoints": {
-    "a2a": "https://bnbagent-api.bnbchain.world/v1/rt/01M1DKG8MKDB3N17RTMRYDQ9XA/a2a",
-    "mcp": "https://bnbagent-api.bnbchain.world/v1/rt/01M1DKG8MKDB3N17RTMRYDQ9XA/mcp",
-    "x402": "https://bnbagent-api.bnbchain.world/v1/rt/01M1DKG8MKDB3N17RTMRYDQ9XA/x402"
+    "a2a": "https://bedrock-agentcore.us-east-1.amazonaws.com/runtimes/arn%3Aaws%3Abedrock-agentcore%3Aus-east-1%3A899042279537%3Aruntime%2Fqwibibnbagent-BMvX2YBtld/invocations?qualifier=DEFAULT",
+    "mcp": "https://l6ipz8ltz1.execute-api.us-east-1.amazonaws.com/mcp"
   },
   "pricing": {
     "erc8183": "0.1 U per job (maximum 1 U)",

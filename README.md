@@ -26,19 +26,19 @@ The Studio runtime uses:
 - ERC-8004 for agent identity
 - ERC-8183 for escrowed jobs
 - B402-backed x402 for pay-per-request work
-- BSC testnet during launch validation
-- A dedicated encrypted throwaway wallet under `qwibibnbagent/.studio/wallets/`
+- BSC mainnet for production commerce
+- A dedicated encrypted production wallet under `qwibibnbagent/.studio/wallets/`
 
 Signing and pricing remain deterministic fixed code. The LLM can use read-only chain tools, but it never receives a signing or settlement tool and never chooses prices.
 
-## Current testnet pricing
+## Current mainnet pricing
 
 - ERC-8183 list price: `0.1 U` per job
 - ERC-8183 maximum price clamp: `1 U`
 - x402/B402 price: `$0.01` per request
 - Automatic wallet top-up: disabled
 
-These are testnet launch defaults, not a final production pricing decision.
+Automatic wallet top-up remains disabled; all signing and spending boundaries are explicit.
 
 ## Local product application
 
@@ -63,31 +63,31 @@ bag dev
 
 The generated runtime keeps secrets in `qwibibnbagent/.studio/.env.local`, which is gitignored. Never pass `WALLET_PASSWORD`, B402 credentials, or private key material through command arguments or commit them.
 
-The managed BNB trial is a temporary 48-hour BSC testnet environment. It requires a new throwaway wallet because its testnet signing material is transmitted to the platform operator's managed secret store during deployment. The trial clock starts on the first successful deploy.
+The production runtime is deployed in the operator's AWS account. Its encrypted keystore, wallet password, and Pieverse key are delivered through AWS Secrets Manager and are excluded from the code bundle.
 
-## Live BNB testnet agent
+## Live BNB mainnet agent
 
-- A2A card: `https://bnbagent-api.bnbchain.world/v1/rt/01M1DKG8MKDB3N17RTMRYDQ9XA/.well-known/agent-card.json`
-- A2A invoke: `https://bnbagent-api.bnbchain.world/v1/rt/01M1DKG8MKDB3N17RTMRYDQ9XA/a2a`
-- MCP: `https://bnbagent-api.bnbchain.world/v1/rt/01M1DKG8MKDB3N17RTMRYDQ9XA/mcp`
-- x402: `https://bnbagent-api.bnbchain.world/v1/rt/01M1DKG8MKDB3N17RTMRYDQ9XA/x402` (dormant until B402 sandbox merchant credentials are provisioned)
-- ERC-8004 agent ID: `2052` on BSC testnet
-- Trial expiry: `2026-09-03T04:15:05Z`
+- A2A invoke: AWS Bedrock AgentCore with Cognito client-credentials authentication
+- Public MCP: `https://l6ipz8ltz1.execute-api.us-east-1.amazonaws.com/mcp`
+- x402: dormant until production B402 merchant credentials and a public payment gateway are provisioned
+- ERC-8004 agent ID: `327090` on BSC mainnet
+- Runtime: AWS Bedrock AgentCore in `us-east-1`
+- Mainnet wallet: `0x4d09aF0beAC3f65c5bDbF1d19F31caCa7924B7ec`
 
 ## Deployment sequence
 
 1. Set `WALLET_PASSWORD` privately in `qwibibnbagent/.studio/.env.local`.
-2. Create the throwaway testnet wallet with `bag wallet new`.
+2. Create the dedicated mainnet wallet with `bag wallet new`.
 3. Activate the default Pieverse `auto/free` model.
 4. Run `bag doctor` and local A2A/MCP smoke tests.
-5. Authenticate with `bag platform login`.
-6. Run `bag deploy prepare --provider bnb --backend aws`.
-7. Deploy with `bag deploy --provider bnb`.
+5. Configure the AWS account, region, durable storage, and least-privilege deployment identity.
+6. Run `bag deploy prepare --provider aws`.
+7. Deploy with `bag deploy --provider aws --secrets-mode secretsmanager`.
 8. Verify the live endpoint and reconcile the ERC-8004 identity.
 9. Publish the deployed HTTPS endpoints in the agent metadata.
 10. List the verified MCP or x402 endpoint on YellowCrab.
 
-Paid x402 activation additionally requires a separate B402 sandbox merchant application for this exact agent wallet and environment. Sandbox and production credentials must never be reused across wallets or networks.
+Paid x402 activation additionally requires a separate B402 production merchant application for this exact agent wallet and environment. Sandbox and production credentials must never be reused across wallets or networks.
 
 ## Verification
 

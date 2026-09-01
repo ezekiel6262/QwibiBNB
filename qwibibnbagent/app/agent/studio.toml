@@ -17,18 +17,7 @@ runtime = "agentcore"
 protocols = ["A2A","MCP","X402"]
 
 [network]
-default = "bsc-testnet"
-
-[deploy]
-# Legacy scaffold intent: this project was created for the managed BNB trial.
-# Deployment still requires an explicit `bag deploy --provider bnb` choice;
-# this field is never used as a silent provider default. Post-deploy state is
-# recorded under [deploy.platform].
-destination = "platform"
-# Artifact channel: 'zip' (evm-local default — managed runtime, no Docker)
-# or 'container' (local Docker build → brokered ECR; forced for twak).
-platform_artifact = "zip"
-packaging = "zip"
+default = "bsc-mainnet"
 
 [wallet]
 # Local keystore signer. The Agent is the SOLE key-holder/signer.
@@ -38,8 +27,7 @@ kind = "evm-local"
 signer = "local"
 keystore_dir = "../../.studio/wallets"
 # address = "0x..."   # filled by `bag wallet new`
-address = "0xcA1E58D6D5c35A5459785301946b36aC8b399900"
-platform_exposed_addresses = ["0xcA1E58D6D5c35A5459785301946b36aC8b399900"]
+address = "0x4d09aF0beAC3f65c5bDbF1d19F31caCa7924B7ec"
 
 [llm]
 provider = "pieverse-llm"
@@ -52,7 +40,7 @@ network = "bsc-mainnet"
 # zero-deposit default. `bag llm activate` creates the key with $0
 # allocation; switch to a paid model + `bag llm topup` only when you need it.
 initial_allocation_usd = 0
-key_hash = "1b2ab4f95348f2761051e262aaead741d25fa11b0b0fbf883507c37f4a0c20dd"
+key_hash = "d5ebef4ef40c5af132a77c1ce7bedda996e9e902fdc1ff05c531404ab25ed171"
 
 [llm.auto_renew]
 # hook auto-allocates from Pieverse Account Balance to the API key when Key
@@ -70,20 +58,27 @@ check_interval_seconds = 60
 # Read by the Agent: it quotes the FIXED `price`, CLAMPS it to [min,max],
 # freezes a short-TTL offer, and EIP-191 signs it — pricing is rule-based, the
 # LLM never prices. price=0 is FREE and is supported by the canonical stack.
-currency = "0xc70B8741B8B07A6d61E54fd4B20f22Fa648E5565"   # $U token address — prefilled from [network].default; rarely changed
+currency = "0xcE24439F2D9C6a2289F741120FE202248B666666"   # $U token address — prefilled from [network].default; rarely changed
 # All prices are in wei of the currency token. U has 18 decimals (not 6 like USDC).
 price = "100000000000000000"                    # wei; 0 = FREE (zero token escrow)
 min_price = "0"                                # wei — clamp floor
-max_price = "1000000000000000000"              # 1 U ceiling; deterministic fixed-code clamp
+max_price = "1000000000000000000"  # wei — clamp ceiling; empty = unbounded; SET before going live
 quote_ttl_seconds = 900                        # seconds a signed quote stays valid; SDK caps at 900 (~15min work window)
 default_estimated_completion_seconds = 600
 poll_interval_seconds = 30
 auto_settle = false                            # opt-in: detect dispute-window-elapsed → settle
 
 [storage]
-# Deliverables written to local disk (file://). Offline-dev only —
-# does NOT survive deploy. Path from STORAGE_LOCAL_PATH.
-kind = "local"
+# User-owned S3 deliverable storage. Objects are immutable and keyed
+# as deliverables/sha256/<content-hash>.json. Set credentials in
+# .studio/.env.local, never here. For an IAM role, set
+# credential_mode = "ambient". public_base_url is optional.
+kind = "s3"
+bucket = "qwibibnb-mainnet-deliverables-899042279537-us-east-1"
+region = "us-east-1"
+key_prefix = "deliverables"
+credential_mode = "ambient"
+# public_base_url = "https://artifacts.customer.com"
 
 
 [payments.b402_seller]
@@ -108,22 +103,25 @@ work_timeout_seconds = 60
 # Both `enabled = true` AND a valid `acknowledged_at` are required for the
 # in-process auto-topup hook to fire (defends against hand-edits).
 enabled = false
-acknowledged_at = "2026-09-01T02:49:32Z"
+acknowledged_at = "2026-09-01T15:38:34Z"
 # Caps — tighten/loosen via `bag budget enable --max-per-topup-usd N ...`
 max_per_topup_usd = 1.0
 max_per_day_usd = 3.0
 max_per_month_usd = 15.0
 
-[deploy.platform]
-terms_accepted_at = "2026-09-01T04:25:23Z"
-slug = "qwibibnb"
-deployment_id = "01M1DKG8MK6RN253Y3AMKTRDZS"
-backend = "aws"
-agent_id = "01M1DKG8MKDB3N17RTMRYDQ9XA"
-invoke_url = "https://bnbagent-api.bnbchain.world/v1/rt/01M1DKG8MKDB3N17RTMRYDQ9XA/.well-known/agent-card.json"
-last_deploy_at = "2026-09-01T04:27:17Z"
+[deploy]
+destination = "self"
+iam_notice_accepted_at = "2026-09-01T22:06:02Z"
+iam_notice_version = 1
+last_deploy_at = "2026-09-01T22:09:41Z"
+provider = "aws"
+runtime_arn = "arn:aws:bedrock-agentcore:us-east-1:899042279537:runtime/qwibibnbagent-BMvX2YBtld"
+invoke_url = "https://bedrock-agentcore.us-east-1.amazonaws.com/runtimes/arn%3Aaws%3Abedrock-agentcore%3Aus-east-1%3A899042279537%3Aruntime%2Fqwibibnbagent-BMvX2YBtld/invocations?qualifier=DEFAULT"
+oauth_client_id = "14qch0u7nfj5eahr0qetvn0ki3"
+oauth_discovery_url = "https://cognito-idp.us-east-1.amazonaws.com/us-east-1_q3qGTbivj/.well-known/openid-configuration"
+packaging = "codezip"
 
 [identity]
-endpoint = "https://bnbagent-api.bnbchain.world/v1/rt/01M1DKG8MKDB3N17RTMRYDQ9XA/.well-known/agent-card.json"
-registered_at = "2026-09-01T08:00:51.966Z"
-agent_id = 2052
+endpoint = "https://bedrock-agentcore.us-east-1.amazonaws.com/runtimes/arn%3Aaws%3Abedrock-agentcore%3Aus-east-1%3A899042279537%3Aruntime%2Fqwibibnbagent-BMvX2YBtld/invocations?qualifier=DEFAULT"
+agent_id = 327090
+registered_at = "2026-09-01T22:42:50Z"
