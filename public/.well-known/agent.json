@@ -1,75 +1,34 @@
 {
-  "name": "Qwibi",
-  "description": "Pay-per-request AI analyst desk for agentic finance. Agents pay with x402 on Algorand for finished, cited, and cryptographically attested analyst deliverables.",
-  "url": "https://qwibi.xyz",
+  "name": "QwibiBNB",
+  "description": "Autonomous AI data and analytics desk on BNB Chain, available through ERC-8183 jobs and x402/B402 requests.",
+  "url": "PENDING_BNB_AGENT_STUDIO_ENDPOINT",
   "provider": {
     "name": "Qwibi",
-    "url": "https://qwibi.xyz"
+    "url": "https://github.com/ezekiel6262/QwibiBNB"
   },
-  "protocols": ["x402"],
-  "networks": ["algorand-mainnet", "algorand-testnet"],
-  "facilitator": "https://facilitator.goplausible.xyz",
-  "challengeTag": "x402-global-challenge",
-  "entryType": "composite",
+  "protocols": ["A2A", "MCP", "x402", "ERC-8183"],
+  "networks": ["bsc-testnet"],
+  "identityStandard": "ERC-8004",
+  "commerceStandard": "ERC-8183",
+  "paymentRail": "B402",
+  "entryType": "bnb-agent-studio",
   "capabilities": [
-    "wallet financial statements",
+    "wallet and on-chain analysis",
     "market intelligence",
-    "forecasting",
-    "data cleaning",
-    "financial modeling",
-    "report writing",
-    "text-to-sql",
-    "BI dashboards",
-    "attestation verification"
+    "forecasting and scenario analysis",
+    "data cleaning and quality reporting",
+    "financial modelling",
+    "professional report writing",
+    "safe read-only text-to-SQL",
+    "strategy backtesting"
   ],
-  "endpoints": [
-    {
-      "method": "POST",
-      "path": "/api/x402/wallet-statement",
-      "price": "$2.00",
-      "description": "Generate an attested wallet financial statement from one or more wallet addresses."
-    },
-    {
-      "method": "POST",
-      "path": "/api/x402/market-intelligence",
-      "price": "$0.50",
-      "description": "Generate a cited crypto and equity market intelligence brief."
-    },
-    {
-      "method": "POST",
-      "path": "/api/x402/forecasting",
-      "price": "$0.25",
-      "description": "Generate a time-series forecast or rule-based strategy backtest."
-    },
-    {
-      "method": "POST",
-      "path": "/api/x402/data-clean",
-      "price": "$0.50",
-      "description": "Clean raw CSV, JSON, or on-chain data into a workbook and quality report."
-    },
-    {
-      "method": "POST",
-      "path": "/api/x402/financial-model",
-      "price": "$0.50",
-      "description": "Generate a DCF workbook with live formulas and a summary."
-    },
-    {
-      "method": "POST",
-      "path": "/api/x402/report-writeup",
-      "price": "$0.10",
-      "description": "Generate a researched report, proposal, case study, or writeup."
-    },
-    {
-      "method": "POST",
-      "path": "/api/x402/text-to-sql-bi",
-      "price": "$0.50",
-      "description": "Answer a safe read-only SQL question or turn CSV data into a dashboard."
-    },
-    {
-      "method": "GET",
-      "path": "/api/x402/verify",
-      "price": "$0.01",
-      "description": "Verify a Qwibi deliverable by job id or SHA-256 attestation hash."
-    }
-  ]
+  "endpoints": {
+    "a2a": "PENDING_BNB_AGENT_STUDIO_ENDPOINT",
+    "mcp": "PENDING_BNB_AGENT_STUDIO_ENDPOINT/mcp",
+    "x402": "PENDING_BNB_AGENT_STUDIO_ENDPOINT/x402"
+  },
+  "pricing": {
+    "erc8183": "0.1 U per job (maximum 1 U)",
+    "x402": "$0.01 per request"
+  }
 }
