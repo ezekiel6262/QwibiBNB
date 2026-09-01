@@ -1,0 +1,327 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Qwibi x402 API",
+    "version": "1.0.0",
+    "description": "Pay-per-request AI analyst desk for agentic finance. Qwibi uses x402 on Algorand through the GoPlausible facilitator."
+  },
+  "servers": [
+    {
+      "url": "https://qwibi.xyz"
+    }
+  ],
+  "tags": [
+    {
+      "name": "x402",
+      "description": "Paid endpoints using x402 on Algorand"
+    }
+  ],
+  "paths": {
+    "/api/x402/wallet-statement": {
+      "post": {
+        "tags": ["x402"],
+        "summary": "Generate wallet financial statement",
+        "description": "Paid x402 endpoint. Generates an attested wallet financial statement from one or more wallet addresses.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "addresses": { "type": "string" },
+                  "template": {
+                    "type": "string",
+                    "enum": ["visa_income", "loan_application", "tax_summary", "rental_proof", "freelancer_income", "personal_review"]
+                  }
+                },
+                "required": ["addresses"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "402": { "$ref": "#/components/responses/PaymentRequired" },
+          "200": { "$ref": "#/components/responses/QueuedJob" }
+        }
+      }
+    },
+    "/api/x402/market-intelligence": {
+      "post": {
+        "tags": ["x402"],
+        "summary": "Generate market intelligence brief",
+        "description": "Paid x402 endpoint. Generates a cited crypto and equity market intelligence brief.",
+        "requestBody": {
+          "$ref": "#/components/requestBodies/MarketIntelligence"
+        },
+        "responses": {
+          "402": { "$ref": "#/components/responses/PaymentRequired" },
+          "200": { "$ref": "#/components/responses/QueuedJob" }
+        }
+      }
+    },
+    "/api/x402/forecasting": {
+      "post": {
+        "tags": ["x402"],
+        "summary": "Run forecast or backtest",
+        "description": "Paid x402 endpoint. Returns a time-series forecast or strategy backtest result.",
+        "requestBody": {
+          "$ref": "#/components/requestBodies/Forecasting"
+        },
+        "responses": {
+          "402": { "$ref": "#/components/responses/PaymentRequired" },
+          "200": {
+            "description": "Forecast or backtest result"
+          }
+        }
+      }
+    },
+    "/api/x402/data-clean": {
+      "post": {
+        "tags": ["x402"],
+        "summary": "Clean and structure data",
+        "description": "Paid x402 endpoint. Cleans raw CSV, JSON, or on-chain data into a workbook and quality report.",
+        "requestBody": {
+          "$ref": "#/components/requestBodies/DataClean"
+        },
+        "responses": {
+          "402": { "$ref": "#/components/responses/PaymentRequired" },
+          "200": { "$ref": "#/components/responses/QueuedJob" }
+        }
+      }
+    },
+    "/api/x402/financial-model": {
+      "post": {
+        "tags": ["x402"],
+        "summary": "Generate financial model",
+        "description": "Paid x402 endpoint. Generates a DCF spreadsheet with live formulas and summary.",
+        "requestBody": {
+          "$ref": "#/components/requestBodies/FinancialModel"
+        },
+        "responses": {
+          "402": { "$ref": "#/components/responses/PaymentRequired" },
+          "200": { "$ref": "#/components/responses/QueuedJob" }
+        }
+      }
+    },
+    "/api/x402/report-writeup": {
+      "post": {
+        "tags": ["x402"],
+        "summary": "Generate report or writeup",
+        "description": "Paid x402 endpoint. Generates a researched report, proposal, case study, or writeup.",
+        "requestBody": {
+          "$ref": "#/components/requestBodies/ReportWriteup"
+        },
+        "responses": {
+          "402": { "$ref": "#/components/responses/PaymentRequired" },
+          "200": { "$ref": "#/components/responses/QueuedJob" }
+        }
+      }
+    },
+    "/api/x402/text-to-sql-bi": {
+      "post": {
+        "tags": ["x402"],
+        "summary": "Run text-to-SQL or BI dashboard job",
+        "description": "Paid x402 endpoint. Answers a safe read-only SQL question or turns CSV data into a dashboard.",
+        "requestBody": {
+          "$ref": "#/components/requestBodies/TextToSqlBi"
+        },
+        "responses": {
+          "402": { "$ref": "#/components/responses/PaymentRequired" },
+          "200": { "$ref": "#/components/responses/QueuedJob" }
+        }
+      }
+    },
+    "/api/x402/verify": {
+      "get": {
+        "tags": ["x402"],
+        "summary": "Verify Qwibi deliverable",
+        "description": "Paid x402 endpoint. Verifies a Qwibi deliverable by job id or SHA-256 attestation hash.",
+        "parameters": [
+          { "name": "jobId", "in": "query", "schema": { "type": "string" } },
+          { "name": "hash", "in": "query", "schema": { "type": "string" } }
+        ],
+        "responses": {
+          "402": { "$ref": "#/components/responses/PaymentRequired" },
+          "200": { "$ref": "#/components/responses/Verified" }
+        }
+      },
+      "post": {
+        "tags": ["x402"],
+        "summary": "Verify Qwibi deliverable",
+        "description": "Paid x402 endpoint. Verifies a Qwibi deliverable by job id or SHA-256 attestation hash.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "jobId": { "type": "string" },
+                  "hash": { "type": "string" }
+                },
+                "anyOf": [
+                  { "required": ["jobId"] },
+                  { "required": ["hash"] }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "402": { "$ref": "#/components/responses/PaymentRequired" },
+          "200": { "$ref": "#/components/responses/Verified" }
+        }
+      }
+    }
+  },
+  "components": {
+    "requestBodies": {
+      "MarketIntelligence": {
+        "required": true,
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "cryptoSymbols": { "type": "string" },
+                "stockTickers": { "type": "string" },
+                "objective": { "type": "string" }
+              },
+              "anyOf": [
+                { "required": ["cryptoSymbols"] },
+                { "required": ["stockTickers"] }
+              ]
+            }
+          }
+        }
+      },
+      "Forecasting": {
+        "required": true,
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "csvData": { "type": "string" },
+                "targetColumn": { "type": "string" },
+                "horizon": { "type": "integer", "minimum": 1 },
+                "strategy": { "type": "string" }
+              },
+              "required": ["csvData"]
+            }
+          }
+        }
+      },
+      "DataClean": {
+        "required": true,
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "sourceType": { "type": "string", "enum": ["csv", "json", "onchain"] },
+                "rawInput": { "type": "string" },
+                "targetSchema": { "type": "string" }
+              },
+              "required": ["sourceType", "rawInput"]
+            }
+          }
+        }
+      },
+      "FinancialModel": {
+        "required": true,
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "modelName": { "type": "string" },
+                "initialRevenue": { "type": "number" },
+                "years": { "type": "integer", "minimum": 1, "maximum": 10 }
+              }
+            }
+          }
+        }
+      },
+      "ReportWriteup": {
+        "required": true,
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "mode": { "type": "string", "enum": ["do_assignment", "writeup_existing"] },
+                "outputFormat": { "type": "string", "enum": ["project_report", "technical_article", "proposal", "case_study"] },
+                "topic": { "type": "string" },
+                "existingWorkNotes": { "type": "string" }
+              },
+              "required": ["mode", "outputFormat", "topic"]
+            }
+          }
+        }
+      },
+      "TextToSqlBi": {
+        "required": true,
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "question": { "type": "string" },
+                "csvData": { "type": "string" },
+                "title": { "type": "string" }
+              },
+              "anyOf": [
+                { "required": ["question"] },
+                { "required": ["csvData"] }
+              ]
+            }
+          }
+        }
+      }
+    },
+    "responses": {
+      "PaymentRequired": {
+        "description": "x402 payment required challenge"
+      },
+      "QueuedJob": {
+        "description": "Queued Qwibi analyst job",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "jobId": { "type": "string" },
+                "status": { "type": "string" },
+                "statusUrl": { "type": "string" },
+                "reportUrl": { "type": "string" },
+                "verifyUrl": { "type": "string" }
+              }
+            }
+          }
+        }
+      },
+      "Verified": {
+        "description": "Qwibi deliverable verification result",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "ok": { "type": "boolean" },
+                "status": { "type": "string" },
+                "verified": { "type": "boolean" },
+                "untampered": { "type": "boolean" },
+                "jobId": { "type": "string" },
+                "attestationHash": { "type": "string" },
+                "manifest": { "type": "object" },
+                "verifyUrl": { "type": "string" }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,75 @@
+{
+  "name": "Qwibi",
+  "description": "Pay-per-request AI analyst desk for agentic finance. Agents pay with x402 on Algorand for finished, cited, and cryptographically attested analyst deliverables.",
+  "url": "https://qwibi.xyz",
+  "provider": {
+    "name": "Qwibi",
+    "url": "https://qwibi.xyz"
+  },
+  "protocols": ["x402"],
+  "networks": ["algorand-mainnet", "algorand-testnet"],
+  "facilitator": "https://facilitator.goplausible.xyz",
+  "challengeTag": "x402-global-challenge",
+  "entryType": "composite",
+  "capabilities": [
+    "wallet financial statements",
+    "market intelligence",
+    "forecasting",
+    "data cleaning",
+    "financial modeling",
+    "report writing",
+    "text-to-sql",
+    "BI dashboards",
+    "attestation verification"
+  ],
+  "endpoints": [
+    {
+      "method": "POST",
+      "path": "/api/x402/wallet-statement",
+      "price": "$2.00",
+      "description": "Generate an attested wallet financial statement from one or more wallet addresses."
+    },
+    {
+      "method": "POST",
+      "path": "/api/x402/market-intelligence",
+      "price": "$0.50",
+      "description": "Generate a cited crypto and equity market intelligence brief."
+    },
+    {
+      "method": "POST",
+      "path": "/api/x402/forecasting",
+      "price": "$0.25",
+      "description": "Generate a time-series forecast or rule-based strategy backtest."
+    },
+    {
+      "method": "POST",
+      "path": "/api/x402/data-clean",
+      "price": "$0.50",
+      "description": "Clean raw CSV, JSON, or on-chain data into a workbook and quality report."
+    },
+    {
+      "method": "POST",
+      "path": "/api/x402/financial-model",
+      "price": "$0.50",
+      "description": "Generate a DCF workbook with live formulas and a summary."
+    },
+    {
+      "method": "POST",
+      "path": "/api/x402/report-writeup",
+      "price": "$0.10",
+      "description": "Generate a researched report, proposal, case study, or writeup."
+    },
+    {
+      "method": "POST",
+      "path": "/api/x402/text-to-sql-bi",
+      "price": "$0.50",
+      "description": "Answer a safe read-only SQL question or turn CSV data into a dashboard."
+    },
+    {
+      "method": "GET",
+      "path": "/api/x402/verify",
+      "price": "$0.01",
+      "description": "Verify a Qwibi deliverable by job id or SHA-256 attestation hash."
+    }
+  ]
+}

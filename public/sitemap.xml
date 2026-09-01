@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://qwibi.xyz/</loc>
+  </url>
+  <url>
+    <loc>https://qwibi.xyz/run</loc>
+  </url>
+  <url>
+    <loc>https://qwibi.xyz/llms.txt</loc>
+  </url>
+  <url>
+    <loc>https://qwibi.xyz/llms-full.txt</loc>
+  </url>
+  <url>
+    <loc>https://qwibi.xyz/openapi.json</loc>
+  </url>
+  <url>
+    <loc>https://qwibi.xyz/.well-known/agent.json</loc>
+  </url>
+</urlset>

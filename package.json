@@ -1,0 +1,52 @@
+{
+  "name": "qwibi",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit",
+    "x402:check": "node scripts/check-x402-ready.js"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.32.1",
+    "@e2b/code-interpreter": "^1.0.4",
+    "@google/genai": "^2.13.0",
+    "@react-pdf/renderer": "^4.5.1",
+    "@supabase/ssr": "^0.5.2",
+    "@supabase/supabase-js": "^2.46.1",
+    "@types/pg": "^8.20.0",
+    "@vercel/functions": "^3.7.6",
+    "@x402-avm/avm": "^2.6.1",
+    "@x402-avm/core": "^2.6.1",
+    "@x402-avm/extensions": "^2.6.1",
+    "@x402-avm/next": "^2.6.1",
+    "@x402/extensions": "^2.20.0",
+    "clsx": "^2.1.1",
+    "docx": "^9.0.3",
+    "exceljs": "^4.4.0",
+    "jszip": "^3.10.1",
+    "next": "^16.2.12",
+    "papaparse": "^5.4.1",
+    "pg": "^8.22.0",
+    "plotly.js-basic-dist-min": "^3.7.0",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8",
+    "swr": "^2.2.5",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@types/node": "^22.9.3",
+    "@types/papaparse": "^5.3.15",
+    "@types/react": "^19.2.18",
+    "@types/react-dom": "^19.2.4",
+    "autoprefixer": "^10.4.20",
+    "eslint": "^9.39.2",
+    "eslint-config-next": "^16.2.12",
+    "postcss": "^8.4.49",
+    "tailwindcss": "^3.4.15",
+    "typescript": "^5.6.3"
+  }
+}

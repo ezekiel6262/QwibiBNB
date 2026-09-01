@@ -1,0 +1,184 @@
+# Qwibi Agent Reference
+
+Qwibi is a composite x402 merchant for the Algorand Global x402 Challenge. It exposes multiple paid analyst endpoints under one merchant identity. Each paid analyst job returns a job id, status URL, report URL, and verify URL. Long-running jobs are queued so agents can poll until delivery.
+
+## Positioning
+
+Qwibi turns x402 payments into verified financial intelligence jobs for AI agents. It is not a chat endpoint. Every full analyst job produces a file such as a PDF, XLSX workbook, or dashboard bundle, then records a SHA-256 attestation manifest.
+
+## Payment Network
+
+- Protocol: x402
+- Chain: Algorand
+- Facilitator: GoPlausible
+- Asset: USDC
+- Challenge tag: x402-global-challenge
+- Entry type: composite merchant
+
+## Endpoints
+
+### Wallet Financial Statement
+
+POST /api/x402/wallet-statement
+
+Price: $2.00
+
+Input:
+
+```json
+{
+  "addresses": "0x0000000000000000000000000000000000000000",
+  "template": "personal_review"
+}
+```
+
+Output: queued job response with reportUrl and verifyUrl.
+
+Use for borrower review, proof of funds, tax summaries, rental proof, freelancer income, and personal finance review.
+
+### Market Intelligence
+
+POST /api/x402/market-intelligence
+
+Price: $0.50
+
+Input:
+
+```json
+{
+  "cryptoSymbols": "BTC,ETH",
+  "stockTickers": "AAPL,NVDA",
+  "objective": "Cross-asset market brief"
+}
+```
+
+Output: queued job response with an attested market brief.
+
+### Forecasting
+
+POST /api/x402/forecasting
+
+Price: $0.25
+
+Input:
+
+```json
+{
+  "csvData": "date,value\n2026-01-01,10\n2026-01-02,12\n2026-01-03,14\n2026-01-04,16\n2026-01-05,18\n2026-01-06,20",
+  "targetColumn": "value",
+  "horizon": 2
+}
+```
+
+Output: synchronous JSON forecast or backtest result.
+
+### Data Clean
+
+POST /api/x402/data-clean
+
+Price: $0.50
+
+Input:
+
+```json
+{
+  "sourceType": "csv",
+  "rawInput": "name,amount\nAlice,100",
+  "targetSchema": "name, amount"
+}
+```
+
+Output: queued job response with a cleaned workbook and quality report.
+
+### Financial Model
+
+POST /api/x402/financial-model
+
+Price: $0.50
+
+Input:
+
+```json
+{
+  "modelName": "Example DCF",
+  "initialRevenue": 1000000,
+  "years": 5
+}
+```
+
+Output: queued job response with a DCF workbook.
+
+### Report Writeup
+
+POST /api/x402/report-writeup
+
+Price: $0.10
+
+Input:
+
+```json
+{
+  "mode": "writeup_existing",
+  "outputFormat": "project_report",
+  "topic": "Example project",
+  "existingWorkNotes": "Describe the completed work here."
+}
+```
+
+Output: queued job response with an attested PDF report.
+
+### Text-to-SQL and BI
+
+POST /api/x402/text-to-sql-bi
+
+Price: $0.50
+
+Input:
+
+```json
+{
+  "question": "Which regions have the highest revenue?"
+}
+```
+
+Output: queued job response with a SQL answer PDF or dashboard bundle.
+
+### Verify
+
+GET /api/x402/verify?jobId={jobId}
+
+POST /api/x402/verify
+
+Price: $0.01
+
+Input:
+
+```json
+{
+  "jobId": "00000000-0000-0000-0000-000000000000"
+}
+```
+
+or:
+
+```json
+{
+  "hash": "sha256-attestation-hash"
+}
+```
+
+Output:
+
+```json
+{
+  "ok": true,
+  "status": "verified",
+  "verified": true,
+  "untampered": true,
+  "attestationHash": "...",
+  "manifest": {},
+  "verifyUrl": "https://qwibi.xyz/verify/{jobId}"
+}
+```
+
+Use this endpoint when another agent, bank, lender, investor, or counterparty needs to verify a Qwibi deliverable before trusting it.

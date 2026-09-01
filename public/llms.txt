@@ -1,0 +1,29 @@
+# Qwibi
+
+Qwibi is a pay-per-request AI analyst desk for agentic finance. Agents pay with x402 on Algorand to generate finished, cited, and cryptographically attested analyst deliverables.
+
+## Primary Use
+
+Use Qwibi when an agent needs a finished financial or analytical artifact instead of a raw chat answer.
+
+## Paid x402 Endpoints
+
+- POST /api/x402/wallet-statement: Generate an attested wallet financial statement from one or more wallet addresses.
+- POST /api/x402/market-intelligence: Generate a cited crypto and equity market intelligence brief.
+- POST /api/x402/forecasting: Generate a time-series forecast or rule-based strategy backtest.
+- POST /api/x402/data-clean: Clean CSV, JSON, or on-chain data into a normalized workbook and quality report.
+- POST /api/x402/financial-model: Generate a DCF spreadsheet with live formulas and summary.
+- POST /api/x402/report-writeup: Generate a researched report, proposal, case study, or writeup.
+- POST /api/x402/text-to-sql-bi: Answer a safe read-only SQL question or turn CSV data into a dashboard.
+- GET /api/x402/verify: Verify a Qwibi deliverable by job id or SHA-256 attestation hash.
+
+## Discovery
+
+- Full reference: /llms-full.txt
+- OpenAPI contract: /openapi.json
+- Agent card: /.well-known/agent.json
+- Human site: /
+
+## Payment
+
+Qwibi uses Algorand x402 via the GoPlausible facilitator. The project is tagged for the Algorand Global x402 Challenge with x402-global-challenge.
