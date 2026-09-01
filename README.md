@@ -71,6 +71,7 @@ The managed BNB trial is a temporary 48-hour BSC testnet environment. It require
 - A2A invoke: `https://bnbagent-api.bnbchain.world/v1/rt/01M1DKG8MKDB3N17RTMRYDQ9XA/a2a`
 - MCP: `https://bnbagent-api.bnbchain.world/v1/rt/01M1DKG8MKDB3N17RTMRYDQ9XA/mcp`
 - x402: `https://bnbagent-api.bnbchain.world/v1/rt/01M1DKG8MKDB3N17RTMRYDQ9XA/x402` (dormant until B402 sandbox merchant credentials are provisioned)
+- ERC-8004 agent ID: `2052` on BSC testnet
 - Trial expiry: `2026-09-03T04:15:05Z`
 
 ## Deployment sequence

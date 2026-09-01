@@ -9,6 +9,7 @@
   "protocols": ["A2A", "MCP", "x402", "ERC-8183"],
   "networks": ["bsc-testnet"],
   "identityStandard": "ERC-8004",
+  "identityAgentId": 2052,
   "commerceStandard": "ERC-8183",
   "paymentRail": "B402",
   "entryType": "bnb-agent-studio",
