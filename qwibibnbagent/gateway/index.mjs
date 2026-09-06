@@ -106,8 +106,19 @@ export async function handler(event) {
   try {
     const method = event.requestContext?.http?.method ?? "POST";
     if (method === "OPTIONS") return { statusCode: 204, body: "" };
+    if (method === "GET") {
+      return jsonResponse(200, {
+        status: "ok",
+        service: "QwibiBNB MCP Gateway",
+        protocol: "MCP",
+        endpoint: "/mcp",
+      }, {
+        "cache-control": "no-store",
+        "x-content-type-options": "nosniff",
+      });
+    }
     if (!['POST', 'DELETE'].includes(method)) {
-      return jsonResponse(405, { error: "Method not allowed" }, { allow: "POST, DELETE, OPTIONS" });
+      return jsonResponse(405, { error: "Method not allowed" }, { allow: "GET, POST, DELETE, OPTIONS" });
     }
 
     const encodedInput = event.body ?? "";
